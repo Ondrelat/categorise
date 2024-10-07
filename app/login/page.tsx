@@ -73,10 +73,10 @@ export default function LoginPage() {
                         </button>
                     </div>
                 </form>
-                <div className="mt-6 text-center">
+                <div className="mt-4 text-center">
                     <button
                         className="w-full bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-150 ease-in-out"
-                        onClick={() => signIn('google')}
+                        onClick={() => signIn('google', { callbackUrl: '/' })} // Redirige vers la page d'accueil après connexion
                     >
                         Se connecter avec Google
                     </button>
