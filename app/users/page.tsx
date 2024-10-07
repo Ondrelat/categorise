@@ -1,4 +1,4 @@
-import clientPromise from "../../lib/mongodb"
+import clientPromise from "../lib/mongodb"
 import { ObjectId, MongoClient } from 'mongodb'
 
 // Définissez une interface pour la structure de vos catégories

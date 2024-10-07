@@ -3,6 +3,7 @@ import React from 'react';
 import './globals.css'
 import Navbar from './components/Navbar';
 import ClientProvider from './components/ClientProvider';
+import SideBar from './components/Sidebar';
 
 export default async function RootLayout({
   children,
@@ -16,6 +17,7 @@ export default async function RootLayout({
         <body className="bg-gray-100">
           <Navbar />
           <main className="container mx-auto mt-4 p-4">
+            <SideBar />
             {children}
           </main>
         </body>
