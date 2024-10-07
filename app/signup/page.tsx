@@ -49,68 +49,78 @@ export default function SignUpPage() {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-10">
-            <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <h2 className="text-2xl mb-6 text-center font-bold">Inscription</h2>
-                {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-                        Nom d&apos;utilisateur
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="name"
-                        type="text"
-                        placeholder="Nom d'utilisateur"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                        Email
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="email"
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                        Mot de passe
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                        id="password"
-                        type="password"
-                        placeholder="******************"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="flex items-center justify-between">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-50 to-blue-100">
+            <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
+                <h2 className="text-3xl mb-6 text-center font-extrabold text-gray-800">Inscription</h2>
+                {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="name">
+                            Nom d&apos;utilisateur
+                        </label>
+                        <input
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                            id="name"
+                            type="text"
+                            placeholder="Nom d'utilisateur"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="email">
+                            Email
+                        </label>
+                        <input
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                            id="email"
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="password">
+                            Mot de passe
+                        </label>
+                        <input
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                            id="password"
+                            type="password"
+                            placeholder="******************"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="flex items-center justify-between">
+                        <button
+                            className="w-full bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 focus:outline-none transition duration-150 ease-in-out"
+                            type="submit"
+                        >
+                            S&apos;inscrire
+                        </button>
+                    </div>
+                </form>
+                <div className="mt-4 text-center">
                     <button
-                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit"
+                        className="w-full bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-150 ease-in-out"
+                        onClick={() => signIn('google')}
                     >
-                        S&apos;inscrire
+                        S&apos;inscrire avec Google
                     </button>
                 </div>
-            </form>
-            <div className="text-center mt-4">
-                <p className="text-gray-600">
-                    Vous avez déjà un compte ?{' '}
-                    <Link href="/login" className="text-blue-500 hover:text-blue-800">
-                        Connectez-vous ici
-                    </Link>
-                </p>
+                <div className="text-center mt-4">
+                    <p className="text-gray-600">
+                        Vous avez déjà un compte ?{' '}
+                        <Link href="/login" className="text-blue-500 hover:text-blue-700 transition-colors">
+                            Connectez-vous ici
+                        </Link>
+                    </p>
+                </div>
             </div>
         </div>
     );
