@@ -1,40 +1,61 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 type ContentSection = 'classement' | 'forum' | 'apprentissage' | 'media';
 
-const CategoryContent: React.FC<{ categoryId: string }> = ({ categoryId }) => {
-    const [activeSection, setActiveSection] = useState<ContentSection>('classement');
+interface Article {
+    id: string;
+    title: string;
+    type: ContentSection;
+}
 
-    const renderContent = () => {
-        switch (activeSection) {
-            case 'classement':
-                return <div>Contenu du classement pour la catégorie {categoryId}</div>;
-            case 'forum':
-                return <div>Contenu du forum pour la catégorie {categoryId}</div>;
-            case 'apprentissage':
-                return <div>Contenu d&apos;apprentissage pour la catégorie {categoryId}</div>;
-            case 'media':
-                return <div>Contenu média pour la catégorie {categoryId}</div>;
-        }
-    };
+const CategoryContent: React.FC<{ categoryId: string; slug: string }> = ({ categoryId, slug }) => {
+    const [activeSection, setActiveSection] = useState<ContentSection>('classement');
+    const [articles, setArticles] = useState<Article[]>([]);
+
+    useEffect(() => {
+        // Fetch articles for the active section
+        console.log("try fetch article");
+        const fetchArticles = async () => {
+            const response = await fetch(`/api/articles?categoryId=${categoryId}&type=${activeSection}`);
+            if (response.ok) {
+                const data = await response.json();
+                setArticles(data);
+            }
+        };
+        fetchArticles();
+    }, [categoryId, activeSection]);
 
     return (
         <div>
-            <div className="flex mb-4">
-                {(['classement', 'forum', 'apprentissage', 'media'] as ContentSection[]).map((section) => (
-                    <button
-                        key={section}
-                        className={`mr-2 px-4 py-2 ${activeSection === section ? 'bg-blue-500 text-white' : 'bg-gray-200'
-                            }`}
-                        onClick={() => setActiveSection(section)}
-                    >
-                        {section.charAt(0).toUpperCase() + section.slice(1)}
-                    </button>
+            <div className="flex mb-4 justify-between items-center">
+                <div>
+                    {(['classement', 'forum', 'apprentissage', 'media'] as ContentSection[]).map((section) => (
+                        <button
+                            key={section}
+                            className={`mr-2 px-4 py-2 ${activeSection === section ? 'bg-blue-500 text-white' : 'bg-gray-200'
+                                }`}
+                            onClick={() => setActiveSection(section)}
+                        >
+                            {section.charAt(0).toUpperCase() + section.slice(1)}
+                        </button>
+                    ))}
+                </div>
+                <Link href={`/categories/${slug}/create-article`} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                    Créer un article
+                </Link>
+            </div>
+            <div className="mt-4">
+                {articles.map((article) => (
+                    <div key={article.id} className="mb-2">
+                        <Link href={`/categories/${slug}/${article.id}`} className="text-blue-500 hover:underline">
+                            {article.title}
+                        </Link>
+                    </div>
                 ))}
             </div>
-            {renderContent()}
         </div>
     );
 };

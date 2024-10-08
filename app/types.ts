@@ -19,3 +19,13 @@ export interface CategoryTreeItem {
     isActive: boolean;
     subcategories: CategoryTreeItem[];
 }
+
+export interface Article {
+    id: string;
+    title: string;
+    content?: string;
+    imageUrl?: string;
+    type: string;
+    createdAt?: Date;
+    categoryId?: string;
+}
