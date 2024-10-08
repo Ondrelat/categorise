@@ -13,15 +13,17 @@ export default async function RootLayout({
 
   return (
     <html lang="fr">
-      <ClientProvider>
-        <body className="bg-gray-100">
+      <body className={`bg-gray-50 flex flex-col min-h-screen`}>
+        <ClientProvider>
           <Navbar />
-          <main className="container mx-auto mt-4 p-4">
+          <div className="flex flex-grow">
             <SideBar />
-            {children}
-          </main>
-        </body>
-      </ClientProvider>
+            <main className="flex-grow p-4 book-bg">
+              {children}
+            </main>
+          </div>
+        </ClientProvider>
+      </body>
     </html >
   );
 }

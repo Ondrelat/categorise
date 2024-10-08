@@ -41,3 +41,23 @@ export async function getCategories(): Promise<CategoryTreeItem[]> {
   console.log('Final category tree:', JSON.stringify(result, null, 2));
   return result;
 }
+
+export async function getCategoryBySlug(slug: string): Promise<Category | null> {
+  const client = await clientPromise;
+  const db = client.db("categorise");
+
+  const category = await db.collection("categories").findOne({ slug });
+
+  if (!category) return null;
+
+  return {
+    _id: new ObjectId(category._id),
+    name: category.name,
+    description: category.description,
+    slug: category.slug,
+    parentCategory: category.parentCategory ? new ObjectId(category.parentCategory) : null,
+    createdAt: new Date(category.createdAt),
+    updatedAt: new Date(category.updatedAt),
+    isActive: category.isActive
+  };
+}
